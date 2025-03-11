@@ -28,3 +28,20 @@ function addTestQuestion (values) {
     document.getElementById("testArea").appendChild(testQ);
   }
 }
+function parseAnswers () {
+  var answers = document.getElementsByClassName("answerBox");
+  for (var i = 0; i < answers.length; i++) {
+    answers[i] = answers[i].value;
+  }
+  return answers;
+}
+function checkAnswers () {
+  var answers = parseAnswers();
+  var score = 0;
+  for (var i = 0; i < answers.length; i++) {
+    if (answers[i] == questions[i][0]) {
+      score++;
+    }
+  }
+  document.getElementById("score").innerHTML = score + " / " + questions.length;
+}
