@@ -1,3 +1,4 @@
+try {
 function generateQuiz () {
   var quizContents = document.getElementById("quizcontents").value;
   if (quizContents == "") {
@@ -18,4 +19,7 @@ document.getElementById("submit").onclick = function () {
   } catch (e) {
     alert(e);
   }
+}
+} catch (error) {
+  alert(error)
 }
