@@ -11,3 +11,7 @@ function generateQuiz () {
   }
   window.open(); // TODO: replace with final link later
 }
+document.getElementById("submit").onclick = function () {
+  alert("Redirecting to test...");
+  generateQuiz();
+}
