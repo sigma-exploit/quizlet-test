@@ -1,47 +1,82 @@
-function parseUrl () {
-  var url = window.location.href;
-  return url.substring(54);
+// Function to parse the URL and extract the 'data' parameter
+function parseUrl() {
+  var urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get('data');
 }
-function makeTestArray (array) {
+
+// Function to convert the quiz string into an array of question-answer pairs
+function makeTestArray(array) {
   var quizContents_line = array.split(";");
   var quizContents_final = [];
   for (var i = 0; i < quizContents_line.length; i++) {
-    quizContents_final.push(quizContents_line[i].split(","));
+    var parts = quizContents_line[i].split(",");
+    if (parts.length === 2) {
+      quizContents_final.push([parts[0], parts[1]]);
+    }
   }
   return quizContents_final;
 }
+
+// Function to scramble the order of the questions
 function scrambleArray(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
+    [arr[i], arr[j]] = [arr[j], arr[i]]; // Swap
   }
   return arr;
 }
+
+// Fetch the data from the URL, parse it, and scramble it
 var questions = parseUrl();
-questions = scrambleArray(makeTestArray(questions));
-function addTestQuestion (values) {
-  for (var i = 0; i < values.length) {
+if (questions) {
+  questions = scrambleArray(makeTestArray(questions));
+} else {
+  console.error("No quiz data found in URL!");
+}
+
+// Function to add the questions and input fields to the page
+function addTestQuestion(values) {
+  var testArea = document.getElementById("testArea");
+  
+  for (var i = 0; i < values.length; i++) {
     var testQ = document.createElement("div");
-    testQ.class = "testQuestion";
+    testQ.classList.add("testQuestion");  // Use classList to add class
     var qNum = i + 1;
-    testQ.innerHTML = "<h3>Question " + qNum + "</h3><p>" + values[i][1] + "</p><input class = 'answerBox'>"; // insecure use of innerHTML, will fix later
-    document.getElementById("testArea").appendChild(testQ);
+    testQ.innerHTML = "<h3>Question " + qNum + "</h3><p>" + values[i][1] + "</p><input class='answerBox' type='text'>";
+    testArea.appendChild(testQ);
   }
 }
-function parseAnswers () {
+
+// Call this function to add the questions to the page
+addTestQuestion(questions);
+
+// Function to gather the answers from the user input fields
+function parseAnswers() {
   var answers = document.getElementsByClassName("answerBox");
+  var userAnswers = [];
+  
   for (var i = 0; i < answers.length; i++) {
-    answers[i] = answers[i].value;
+    userAnswers.push(answers[i].value); // Push user input values into array
   }
-  return answers;
+  
+  return userAnswers;
 }
-function checkAnswers () {
+
+// Function to check the user's answers and display the score
+function checkAnswers() {
   var answers = parseAnswers();
   var score = 0;
+  
   for (var i = 0; i < answers.length; i++) {
-    if (answers[i] == questions[i][0]) {
+    if (answers[i] === questions[i][0]) {  // Compare user answer with correct answer
       score++;
     }
   }
-  document.getElementById("score").innerHTML = score + " / " + questions.length;
+  
+  document.getElementById("score").innerHTML = "Your Score: " + score + " / " + questions.length;
 }
+
+// Add event listener to the "Submit Test" button to check answers
+document.getElementById("submit").onclick = function () {
+  checkAnswers();
+};
