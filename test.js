@@ -39,6 +39,16 @@ if (questions) {
 // Function to add the questions and input fields to the page
 function addTestQuestion(values) {
   var testArea = document.getElementById("testArea");
+  
+  if (!testArea) {
+    console.error("testArea element not found!");
+    return;
+  }
+
+  if (values.length === 0) {
+    console.error("No questions available!");
+    return;
+  }
 
   for (var i = 0; i < values.length; i++) {
     var testQ = document.createElement("div");
@@ -49,8 +59,12 @@ function addTestQuestion(values) {
   }
 }
 
-// Call this function to add the questions to the page
-addTestQuestion(questions);
+// Only add the test questions if they exist
+if (questions && questions.length > 0) {
+  addTestQuestion(questions);
+} else {
+  console.error("There are no questions to display.");
+}
 
 // Function to gather the answers from the user input fields
 function parseAnswers() {
