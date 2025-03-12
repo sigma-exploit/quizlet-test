@@ -8,7 +8,7 @@ function generateQuiz() {
 
   var quizContents_line = quizContents.split("\n");
   var quizContents_final = [];
-  
+  var quizContents_url = "";
   for (var i = 0; i < quizContents_line.length; i++) {
     var parts = quizContents_line[i].split(": ");
     if (parts.length === 2) {
@@ -20,10 +20,17 @@ function generateQuiz() {
   }
 
   if (quizContents_final.length > 0) {
+    // Construct the URL string properly
+    for (var i = 0; i < quizContents_final.length; i++) {
+      quizContents_url += encodeURIComponent(quizContents_final[i].question) + "=" + encodeURIComponent(quizContents_final[i].answer) + "&";
+    }
+    // Remove the last "&" character from the URL
+    quizContents_url = quizContents_url.slice(0, -1);
+    
     // Implement the logic to generate the quiz from quizContents_final
     alert("Quiz generated with " + quizContents_final.length + " questions!");
-    // Example: Redirect to a new page with quiz details (you can replace this with your actual link)
-    window.open("https://example.com/quiz?data=" + encodeURIComponent(JSON.stringify(quizContents_final)), "_blank");
+    // Redirect to the new page with quiz data
+    window.open("https://example.com/quiz?data=" + quizContents_url, "_blank");
   } else {
     alert("No valid data found for quiz generation.");
   }
