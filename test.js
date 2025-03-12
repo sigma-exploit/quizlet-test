@@ -50,6 +50,9 @@ function addTestQuestion(values) {
     return;
   }
 
+  // Clear the testArea before adding questions to avoid duplication
+  testArea.innerHTML = '';
+
   for (var i = 0; i < values.length; i++) {
     var testQ = document.createElement("div");
     testQ.classList.add("testQuestion");  // Use classList to add class
