@@ -1,19 +1,21 @@
 // Function to parse the URL and extract the 'data' parameter
 function parseUrl() {
   var urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get('data');
+  return urlParams.get('data'); // Get the 'data' query parameter from the URL
 }
 
-// Function to convert the quiz string into an array of question-answer pairs
-function makeTestArray(array) {
-  var quizContents_line = array.split(";");
+// Function to convert the query string into an array of question-answer pairs
+function makeTestArray(data) {
   var quizContents_final = [];
-  for (var i = 0; i < quizContents_line.length; i++) {
-    var parts = quizContents_line[i].split(",");
-    if (parts.length === 2) {
-      quizContents_final.push([parts[0], parts[1]]);
+  var questionAnswerPairs = data.split("&"); // Split the data string by '&' to get each question-answer pair
+
+  for (var i = 0; i < questionAnswerPairs.length; i++) {
+    var pair = questionAnswerPairs[i].split("="); // Split each pair by '=' to separate question and answer
+    if (pair.length === 2) {
+      quizContents_final.push([pair[0].trim(), pair[1].trim()]); // Push question-answer pair into the final array
     }
   }
+
   return quizContents_final;
 }
 
@@ -29,7 +31,7 @@ function scrambleArray(arr) {
 // Fetch the data from the URL, parse it, and scramble it
 var questions = parseUrl();
 if (questions) {
-  questions = scrambleArray(makeTestArray(questions));
+  questions = scrambleArray(makeTestArray(questions)); // Parse and scramble the questions
 } else {
   console.error("No quiz data found in URL!");
 }
@@ -37,12 +39,12 @@ if (questions) {
 // Function to add the questions and input fields to the page
 function addTestQuestion(values) {
   var testArea = document.getElementById("testArea");
-  
+
   for (var i = 0; i < values.length; i++) {
     var testQ = document.createElement("div");
     testQ.classList.add("testQuestion");  // Use classList to add class
     var qNum = i + 1;
-    testQ.innerHTML = "<h3>Question " + qNum + "</h3><p>" + values[i][1] + "</p><input class='answerBox' type='text'>";
+    testQ.innerHTML = "<h3>Question " + qNum + "</h3><p>" + values[i][0] + "</p><input class='answerBox' type='text'>";
     testArea.appendChild(testQ);
   }
 }
@@ -54,11 +56,11 @@ addTestQuestion(questions);
 function parseAnswers() {
   var answers = document.getElementsByClassName("answerBox");
   var userAnswers = [];
-  
+
   for (var i = 0; i < answers.length; i++) {
     userAnswers.push(answers[i].value); // Push user input values into array
   }
-  
+
   return userAnswers;
 }
 
@@ -66,13 +68,13 @@ function parseAnswers() {
 function checkAnswers() {
   var answers = parseAnswers();
   var score = 0;
-  
+
   for (var i = 0; i < answers.length; i++) {
-    if (answers[i] === questions[i][0]) {  // Compare user answer with correct answer
+    if (answers[i].trim().toLowerCase() === questions[i][1].toLowerCase()) {  // Compare user answer with correct answer
       score++;
     }
   }
-  
+
   document.getElementById("score").innerHTML = "Your Score: " + score + " / " + questions.length;
 }
 
