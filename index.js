@@ -30,7 +30,7 @@ function generateQuiz() {
     // Implement the logic to generate the quiz from quizContents_final
     alert("Quiz generated with " + quizContents_final.length + " questions!");
     // Redirect to the new page with quiz data
-    window.open("https://example.com/quiz?data=" + quizContents_url, "_blank");
+    window.open("https://sigma-exploit.github.io/quizlet-test/test.html?data=" + quizContents_url, "_blank");
   } else {
     alert("No valid data found for quiz generation.");
   }
