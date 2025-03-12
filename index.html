@@ -1,7 +1,17 @@
 <html>
   <head>
     <title>Quizlet Quiz Generator</title>
-    <style></style>
+    <style>
+      textarea {
+        width: 100%;
+        height: 200px;
+      }
+      button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+      }
+    </style>
   </head>
   <body>
     <h1>Quizlet Quiz Generator</h1>
@@ -12,11 +22,11 @@
       2. Click "Make a copy" <br>
       3. Make the copy without altering the set <br>
       4. On the newly made set (owned by you), click "Export" <br>
-      5. Set the seperator to colon (:) and copy and paste it here.
+      5. Set the separator to colon (:) and copy and paste it here.
     </p>
-    <textarea id = "quizcontents" placeholder = "Quizlet contents here"></textarea>
+    <textarea id="quizcontents" placeholder="Quizlet contents here"></textarea>
     <br>
-    <button id = "submit">Generate Quiz</button>
-    <script src = "https://raw.githubusercontent.com/sigma-exploit/quizlet-test/refs/heads/main/index.js"></script>
+    <button id="submit">Generate Quiz</button>
+    <script src="https://raw.githubusercontent.com/sigma-exploit/quizlet-test/refs/heads/main/index.js"></script>
   </body>
 </html>
