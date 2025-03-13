@@ -1,6 +1,7 @@
 // Function to parse the URL and extract the 'data' parameter
 function parseUrl() {
   var urlParams = new URLSearchParams(window.location.search);
+  alert(decodeURIComponent(urlParams.get('data')));
   return decodeURIComponent(urlParams.get('data')); // Get the 'data' query parameter from the URL
 }
 
