@@ -6,10 +6,10 @@ function parseUrl() {
 
 function makeTestArray(data) {
   var quizContents_final = [];
-  var questionAnswerPairs = data.split(";");
+  var questionAnswerPairs = data.split("\");
 
   for (var i = 0; i < questionAnswerPairs.length; i++) {
-    var pair = questionAnswerPairs[i].split(",");
+    var pair = questionAnswerPairs[i].split("|");
     if (pair.length === 2) {
       quizContents_final.push([pair[0].trim(), pair[1].trim()]);
     }
