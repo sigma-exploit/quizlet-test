@@ -15,7 +15,7 @@ function makeTestArray(data) {
       quizContents_final.push([pair[0].trim(), pair[1].trim()]); // Push question-answer pair into the final array
     }
   }
-
+  alert(quizContents_final.length);
   return quizContents_final;
 }
 
