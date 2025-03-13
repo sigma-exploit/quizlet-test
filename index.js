@@ -30,7 +30,7 @@ function generateQuiz() {
     quizContents_url = quizContents_url.slice(0, -1);
     var key = getRandomInt(1000000);
     alert("Quiz generated with " + quizContents_final.length + " questions!");
-    localStorage.setItem(key.toString(), quizContents_url)
+    localStorage.setItem(key, quizContents_url);
     window.open("https://sigma-exploit.github.io/quizlet-test/test.html?data=" + key, "_blank");
   } else {
     alert("No valid data found for quiz generation.");
