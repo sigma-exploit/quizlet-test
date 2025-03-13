@@ -1,21 +1,20 @@
-// Function to parse the URL and extract the 'data' parameter
 function parseUrl() {
   var urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get('data'); // Get the 'data' query parameter from the URL
+  alert(decodeURIComponent(urlParams.get('data')));
+  return decodeURIComponent(urlParams.get('data')); // Get the 'data' query parameter from the URL
 }
 
-// Function to convert the query string into an array of question-answer pairs
 function makeTestArray(data) {
   var quizContents_final = [];
-  var questionAnswerPairs = data.split("&"); // Split the data string by '&' to get each question-answer pair
+  var questionAnswerPairs = data.split("\");
 
   for (var i = 0; i < questionAnswerPairs.length; i++) {
-    var pair = questionAnswerPairs[i].split("="); // Split each pair by '=' to separate question and answer
+    var pair = questionAnswerPairs[i].split("|");
     if (pair.length === 2) {
-      quizContents_final.push([pair[0].trim(), pair[1].trim()]); // Push question-answer pair into the final array
+      quizContents_final.push([pair[0].trim(), pair[1].trim()]);
     }
   }
-
+  alert(quizContents_final.length);
   return quizContents_final;
 }
 
@@ -23,20 +22,19 @@ function makeTestArray(data) {
 function scrambleArray(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]]; // Swap
+    [arr[i], arr[j]] = [arr[j], arr[i]];
   }
   return arr;
 }
 
-// Fetch the data from the URL, parse it, and scramble it
 var questions = parseUrl();
+alert(questions);
 if (questions) {
-  questions = scrambleArray(makeTestArray(questions)); // Parse and scramble the questions
+  questions = scrambleArray(makeTestArray(questions));
 } else {
   console.error("No quiz data found in URL!");
 }
 
-// Function to add the questions and input fields to the page
 function addTestQuestion(values) {
   var testArea = document.getElementById("testArea");
   
@@ -50,6 +48,8 @@ function addTestQuestion(values) {
     return;
   }
 
+  testArea.innerHTML = '';
+
   for (var i = 0; i < values.length; i++) {
     var testQ = document.createElement("div");
     testQ.classList.add("testQuestion");  // Use classList to add class
@@ -59,14 +59,12 @@ function addTestQuestion(values) {
   }
 }
 
-// Only add the test questions if they exist
 if (questions && questions.length > 0) {
   addTestQuestion(questions);
 } else {
   console.error("There are no questions to display.");
 }
 
-// Function to gather the answers from the user input fields
 function parseAnswers() {
   var answers = document.getElementsByClassName("answerBox");
   var userAnswers = [];
@@ -78,7 +76,6 @@ function parseAnswers() {
   return userAnswers;
 }
 
-// Function to check the user's answers and display the score
 function checkAnswers() {
   var answers = parseAnswers();
   var score = 0;
@@ -91,8 +88,6 @@ function checkAnswers() {
 
   document.getElementById("score").innerHTML = "Your Score: " + score + " / " + questions.length;
 }
-
-// Add event listener to the "Submit Test" button to check answers
 document.getElementById("submit").onclick = function () {
   checkAnswers();
 };
