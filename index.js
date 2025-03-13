@@ -20,7 +20,6 @@ function generateQuiz() {
   }
 
   if (quizContents_final.length > 0) {
-    // Construct the URL string properly
     for (var i = 0; i < quizContents_final.length; i++) {
       quizContents_url += encodeURIComponent(quizContents_final[i].question) + "|" + encodeURIComponent(quizContents_final[i].answer) + "\";
     }
