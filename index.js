@@ -3,7 +3,7 @@ function generateQuiz() {
   if (quizContents === "") {
     alert("Please enter valid quiz contents");
     console.log("Generation stopped because no quiz contents were entered");
-    return; // Stop further execution
+    return;
   }
 
   var quizContents_line = quizContents.split("\n");
@@ -24,12 +24,9 @@ function generateQuiz() {
     for (var i = 0; i < quizContents_final.length; i++) {
       quizContents_url += encodeURIComponent(quizContents_final[i].question) + "," + encodeURIComponent(quizContents_final[i].answer) + ";";
     }
-    // Remove the last "&" character from the URL
     quizContents_url = quizContents_url.slice(0, -1);
     
-    // Implement the logic to generate the quiz from quizContents_final
     alert("Quiz generated with " + quizContents_final.length + " questions!");
-    // Redirect to the new page with quiz data
     window.open("https://sigma-exploit.github.io/quizlet-test/test.html?data=" + quizContents_url, "_blank");
   } else {
     alert("No valid data found for quiz generation.");
