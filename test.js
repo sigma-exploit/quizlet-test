@@ -8,10 +8,10 @@ function parseUrl() {
 // Function to convert the query string into an array of question-answer pairs
 function makeTestArray(data) {
   var quizContents_final = [];
-  var questionAnswerPairs = data.split("&"); // Split the data string by '&' to get each question-answer pair
+  var questionAnswerPairs = data.split(";"); // Split the data string by '&' to get each question-answer pair
 
   for (var i = 0; i < questionAnswerPairs.length; i++) {
-    var pair = questionAnswerPairs[i].split("="); // Split each pair by '=' to separate question and answer
+    var pair = questionAnswerPairs[i].split(","); // Split each pair by '=' to separate question and answer
     if (pair.length === 2) {
       quizContents_final.push([pair[0].trim(), pair[1].trim()]); // Push question-answer pair into the final array
     }
