@@ -1,3 +1,7 @@
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+
 function generateQuiz() {
   var quizContents = document.getElementById("quizcontents").value;
   if (quizContents === "") {
@@ -24,9 +28,10 @@ function generateQuiz() {
       quizContents_url += encodeURIComponent(quizContents_final[i].question) + "|" + encodeURIComponent(quizContents_final[i].answer) + "\";
     }
     quizContents_url = quizContents_url.slice(0, -1);
-    
+    var key = getRandomInt(1000000);
     alert("Quiz generated with " + quizContents_final.length + " questions!");
-    window.open("https://sigma-exploit.github.io/quizlet-test/test.html?data=" + quizContents_url, "_blank");
+    localStorage.setItem(key.toString(), quizContents_url)
+    window.open("https://sigma-exploit.github.io/quizlet-test/test.html?data=" + key, "_blank");
   } else {
     alert("No valid data found for quiz generation.");
   }
