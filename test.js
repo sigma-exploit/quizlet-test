@@ -1,6 +1,5 @@
 function parseUrl() {
   var urlParams = new URLSearchParams(window.location.search);
-  alert(decodeURIComponent(urlParams.get('data')));
   return decodeURIComponent(urlParams.get('data')); // Get the 'data' query parameter from the URL
 }
 
@@ -18,7 +17,6 @@ function makeTestArray(data) {
   return quizContents_final;
 }
 
-// Function to scramble the order of the questions
 function scrambleArray(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -27,7 +25,7 @@ function scrambleArray(arr) {
   return arr;
 }
 
-var questions = parseUrl();
+var questions = localStorage.getItem(parseUrl());
 alert(questions);
 if (questions) {
   questions = scrambleArray(makeTestArray(questions));
