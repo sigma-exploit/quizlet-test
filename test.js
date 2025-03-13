@@ -96,7 +96,6 @@ function checkAnswers() {
 
   document.getElementById("score").innerHTML = "Your Score: " + score + " / " + questions.length;
 }
-// Add event listener to the "Submit Test" button to check answers
 document.getElementById("submit").onclick = function () {
   checkAnswers();
 };
