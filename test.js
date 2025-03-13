@@ -31,6 +31,7 @@ function scrambleArray(arr) {
 
 // Fetch the data from the URL, parse it, and scramble it
 var questions = parseUrl();
+alert(questions);
 if (questions) {
   questions = scrambleArray(makeTestArray(questions)); // Parse and scramble the questions
 } else {
